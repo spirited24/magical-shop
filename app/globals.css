@@ -1,26 +1,284 @@
 @import "tailwindcss";
+@import "tw-animate-css";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+@custom-variant dark (&:is(.dark *));
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
+  --color-background: hsl(var(--background));
+  --color-foreground: hsl(var(--foreground));
+
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar: var(--sidebar);
+  --color-chart-5: var(--chart-5);
+  --color-chart-4: var(--chart-4);
+  --color-chart-3: var(--chart-3);
+  --color-chart-2: var(--chart-2);
+  --color-chart-1: var(--chart-1);
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+
+  --color-magic-purple: #9b87f5;
+  --color-magic-deep-purple: #7e69ab;
+  --color-magic-light-purple: #d6bcfa;
+  --color-magic-soft-purple: #e5deff;
+  --color-magic-blue: #33c3f0;
+  --color-magic-pink: #d946ef;
+
+  --color-element-fire: #ff6b6b;
+  --color-element-ice: #5cceff;
+  --color-element-electric: #ffd43b;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+@utility container {
+  margin-inline: auto;
+  padding-inline: 2rem;
+  @media (width >= --theme(--breakpoint-sm)) {
+    max-width: none;
+  }
+  @media (width >= 1400px) {
+    max-width: 1400px;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@layer base {
+  *,
+  ::after,
+  ::before,
+  ::backdrop,
+  ::file-selector-button {
+    border-color: var(--color-gray-200, currentcolor);
+  }
+}
+
+@utility star {
+  @apply absolute bg-white rounded-full opacity-70 animate-twinkle;
+  box-shadow: 0 0 4px 1px white, 0 0 8px 2px rgba(255, 255, 255, 0.6);
+}
+
+@utility star-small {
+  @apply w-1 h-1;
+}
+
+@utility star-medium {
+  @apply w-1.5 h-1.5;
+}
+
+@utility star-large {
+  @apply w-2 h-2;
+}
+
+@utility potion-card {
+  @apply bg-card rounded-xl overflow-hidden border border-purple-700/30 shadow-lg transition-all hover:shadow-purple-500/20 hover:border-purple-500/40;
+  background-image: radial-gradient(
+    circle at 100% 0%,
+    rgba(155, 135, 245, 0.15) 0%,
+    transparent 25%
+  );
+}
+
+@utility potion-fire {
+  @apply hover:shadow-element-fire/20 hover:border-element-fire/40;
+  background-image: radial-gradient(
+    circle at 100% 0%,
+    rgba(255, 107, 107, 0.15) 0%,
+    transparent 25%
+  );
+}
+
+@utility potion-ice {
+  @apply hover:shadow-element-ice/20 hover:border-element-ice/40;
+  background-image: radial-gradient(
+    circle at 100% 0%,
+    rgba(92, 206, 255, 0.15) 0%,
+    transparent 25%
+  );
+}
+
+@utility potion-electric {
+  @apply hover:shadow-element-electric/20 hover:border-element-electric/40;
+  background-image: radial-gradient(
+    circle at 100% 0%,
+    rgba(255, 212, 59, 0.15) 0%,
+    transparent 25%
+  );
+}
+
+@utility filter-pill {
+  @apply px-4 py-2 rounded-full text-sm font-medium transition-all;
+}
+
+@utility tag {
+  @apply px-2 py-1 text-xs rounded-md bg-secondary text-foreground/70 hover:text-foreground transition-colors;
+}
+
+@utility animate-twinkle {
+  /* Animation styles from tailwind.config.ts */
+  animation: twinkle 4s ease-in-out infinite;
+}
+
+@utility animate-glow {
+  animation: glow 3s ease-in-out infinite;
+}
+
+@utility floating {
+  animation: float 6s ease-in-out infinite;
+}
+
+:root {
+  --radius: 0.75rem;
+  --background: 240 30% 10%;
+  --foreground: 0 0% 98%;
+  --card: 240 25% 15%;
+  --card-foreground: 0 0% 98%;
+  --popover: 240 25% 15%;
+  --popover-foreground: 0 0% 98%;
+  --primary: 273 75% 75%;
+  --primary-foreground: 0 0% 98%;
+  --secondary: 240 30% 20%;
+  --secondary-foreground: 0 0% 98%;
+  --muted: 240 30% 20%;
+  --muted-foreground: 240 5% 64.9%;
+  --accent: 273 75% 75%;
+  --accent-foreground: 0 0% 98%;
+  --destructive: 0 62.8% 30.6%;
+  --destructive-foreground: 0 0% 98%;
+  --border: 240 30% 20%;
+  --input: 240 30% 20%;
+  --ring: 273 75% 75%;
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  html {
+    @apply scroll-smooth;
+  }
+  body {
+    @apply bg-background text-foreground antialiased;
+    background-image: radial-gradient(
+        circle at 20% 30%,
+        rgba(78, 30, 150, 0.2) 0%,
+        transparent 35%
+      ),
+      radial-gradient(
+        circle at 80% 70%,
+        rgba(94, 34, 180, 0.2) 0%,
+        transparent 45%
+      );
+  }
+  p,
+  h2 {
+    @apply text-purple-100/70;
+  }
+}
+
+@layer components {
+  @keyframes twinkle {
+    0%,
+    100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0.3;
+    }
+  }
+
+  @keyframes float {
+    0%,
+    100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-10px);
+    }
+  }
+
+  @keyframes glow {
+    0%,
+    100% {
+      filter: brightness(1);
+    }
+    50% {
+      filter: brightness(1.3);
+    }
+  }
+
+  @keyframes glowing {
+    0% {
+      background-position: 0 0;
+    }
+    50% {
+      background-position: 400% 0;
+    }
+    100% {
+      background-position: 0 0;
+    }
+  }
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  @keyframes slideUp {
+    from {
+      transform: translateY(20px);
+      opacity: 0;
+    }
+    to {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+
+  @keyframes float-up {
+    0% {
+      transform: translateY(0) rotate(0deg);
+      opacity: 0;
+    }
+    20% {
+      opacity: 0.5;
+    }
+    50% {
+      opacity: 0.8;
+    }
+    90% {
+      opacity: 0.1;
+    }
+    100% {
+      transform: translateY(-100px) rotate(360deg);
+      opacity: 0;
+    }
+  }
 }
