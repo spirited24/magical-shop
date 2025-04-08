@@ -1,3 +1,4 @@
+import Navigation from "@/components/navigation";
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
@@ -27,7 +28,10 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        {children}
+        <div className="container mx-auto px-4 py-8">
+          <Navigation />
+          <main className="min-h-screen p-8">{children}</main>
+        </div>
       </body>
     </html>
   );
