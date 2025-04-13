@@ -81,16 +81,23 @@ export async function fetchRandomTrendingPotion() {
   const headers = {
     Accept: "application/vnd.github+json",
     Authorization: `Bearer ${githubToken}`,
-  };
+  }; //dynamic
 
   try {
-    const response = await fetch(url, { headers, cache: "no-store" }); //SSR
+    const response = await fetch(url, { headers, cache: "no-store" }); //SSR => revalidate = 0
 
     const data = await response.json();
     console.log({ data });
     const randomIndex = Math.floor(Math.random() * data.items.length);
     return transformRepoToPotion(data.items[randomIndex], randomIndex);
   } catch (error) {
+    if (
+      error instanceof Error &&
+      "digest" in error &&
+      error.digest === "DYNAMIC_SERVER_USAGE"
+    ) {
+      throw error;
+    }
     console.error("Failed to fetch potions", (error as Error).message);
     return null;
   }
