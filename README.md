@@ -1,36 +1,155 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Open Source Spirit Shop
+
+A mystical web application that transforms popular open-source tools into magical potions. Built with Next.js 15, TypeScript, and shadcn/ui components.
+
+## Features
+
+- 🧪 Magical potion cards for popular open-source tools
+- 🔮 Filter by magical types (Fire-type = React, Ice-type = Tailwind, Electric-type = Node)
+- ⚡ Server-side rendering with ISR (Incremental Static Regeneration)
+- 🎯 Dynamic potion pages with pre-built popular potions
+- 🌙 Dark mode support
+- 🔒 Type-safe with TypeScript
+- 🚀 Fast page loads with Next.js
+- 🎲 Mystery potion page with random trending repositories
+
+## Tech Stack
+
+- **Framework**: Next.js 15
+- **Language**: TypeScript
+- **Styling**: Tailwind CSS
+- **UI Components**: shadcn/ui
+- **Data Fetching**: GitHub API
+- **Client State**: SWR
+- **Caching**: Next.js ISR
 
 ## Getting Started
 
-First, run the development server:
+### Prerequisites
+
+- Node.js 18+
+- npm or yarn
+- GitHub account (for API access)
+
+### Installation
+
+1. Clone the repository:
+
+```bash
+git clone https://github.com/yourusername/open-source-spirit-shop.git
+cd open-source-spirit-shop
+```
+
+2. Install dependencies:
+
+```bash
+npm install
+```
+
+3. Set up GitHub authentication:
+
+   - Install GitHub CLI:
+
+   ```bash
+   brew install gh
+   gh auth login
+   ```
+
+   - Or manually create a token:
+     1. Go to https://github.com/settings/tokens
+     2. Generate a new token with `repo` and `read:org` scopes
+     3. Copy the token
+
+4. Create a `.env.local` file in the root directory:
+
+```env
+GITHUB_TOKEN=your_github_token_here
+```
+
+5. Start the development server:
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+6. Open [http://localhost:3000](http://localhost:3000) in your browser.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Project Structure
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```
+app/
+├── api/
+│   └── potions/      # API route for potions data
+├── components/
+│   ├── ui/           # shadcn/ui components
+│   ├── PotionCard.tsx  # Individual potion card component
+│   ├── PotionGrid.tsx  # Grid of potions with filtering
+│   └── PotionFilters.tsx  # Filter controls
+├── lib/
+│   ├── github.ts     # GitHub API utilities
+│   └── types.ts      # TypeScript type definitions
+├── potions/
+│   └── [slug]/       # Dynamic route for individual potions
+└── mystery/          # Mystery potion page
+```
 
-## Learn More
+## Data Fetching Strategy
 
-To learn more about Next.js, take a look at the following resources:
+The app uses different data fetching strategies:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+1. **Homepage (SSG with ISR)**:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+   - Static generation with hourly revalidation
+   - Fetches popular repositories from GitHub API
+   - Client-side filtering with SWR
+   - Cached for better performance
 
-## Deploy on Vercel
+2. **Individual Potion Pages (ISR)**:
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+   - Pre-built for popular repositories
+   - Dynamic generation for other repositories
+   - Hourly revalidation
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+3. **Mystery Potion Page (SSR)**:
+
+   - Server-side rendering with no caching
+   - Fetches random trending repository
+   - Fresh data on every request
+
+4. **Client-side Filtering**:
+   - Magical type filtering (Fire, Ice, Electric)
+   - No additional API calls
+   - Instant UI updates
+
+## GitHub API Integration
+
+The app uses the GitHub API to fetch repository data:
+
+- Search query: `topic:javascript+stars:>5000`
+  - Shows repositories with:
+    - Topic: javascript
+    - Stars: >5000
+- Rate limits:
+  - Authenticated: 5,000 requests/hour
+  - Unauthenticated: 60 requests/hour
+- Caching: 1-hour revalidation for static pages
+
+## Contributing
+
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add some amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
+
+## License
+
+This project is licensed under the MIT License - see the LICENSE file for details.
+
+## Acknowledgments
+
+- [Next.js](https://nextjs.org/)
+- [shadcn/ui](https://ui.shadcn.com/)
+- [GitHub API](https://docs.github.com/en/rest)
+- [Tailwind CSS](https://tailwindcss.com/)
+- [SWR](https://swr.vercel.app/)
