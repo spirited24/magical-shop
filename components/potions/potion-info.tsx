@@ -2,18 +2,19 @@ import {
   PotionHeader,
   PotionInfoCard,
   PotionStats,
-} from '@/components/potions/potion-common';
-import { Badge } from '@/components/ui/badge';
-import { PotionType } from '@/types/github';
-import { CalendarIcon, CodeIcon, GithubIcon, StarIcon } from 'lucide-react';
-import Image from 'next/image';
+} from "@/components/potions/potion-common";
+import { Badge } from "@/components/ui/badge";
+import { PotionType } from "@/types/github";
+import { CalendarIcon, CodeIcon, GithubIcon, StarIcon } from "lucide-react";
+import Image from "next/image";
+
 interface PotionInfoType {
   potion: PotionType;
 }
 
 export default function PotionInfo({ potion }: PotionInfoType) {
-  const title = 'Potion Details';
-  const subTitle = 'Discover the magical properties of this enchanted brew';
+  const title = "Potion Details";
+  const subTitle = "Discover the magical properties of this enchanted brew";
   const {
     name,
     owner,
@@ -69,10 +70,10 @@ export default function PotionInfo({ potion }: PotionInfoType) {
                 <div className="flex items-center gap-2">
                   <CalendarIcon className="h-4 w-4 text-purple-400" />
                   <span>
-                    {new Date(updated_at).toLocaleDateString('en-US', {
-                      year: 'numeric',
-                      month: 'long',
-                      day: 'numeric',
+                    {new Date(updated_at).toLocaleDateString("en-US", {
+                      year: "numeric",
+                      month: "long",
+                      day: "numeric",
                     })}
                   </span>
                 </div>

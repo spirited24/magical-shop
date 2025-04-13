@@ -1,4 +1,4 @@
-import { GithubRepo } from "@/types/github";
+import { GithubRepo, MagicalType } from "@/types/github";
 import { MAGICAL_TYPES } from "@/utils/constants";
 
 const GITHUB_API_URL = "https://api.github.com";
@@ -16,7 +16,7 @@ const transformRepoToPotion = (repo: GithubRepo, index: number) => {
     ...repo,
     topics: repo.topics.slice(0, 3),
     potionEffect: POTION_EFFECTS[index % POTION_EFFECTS.length],
-    magicalType: MAGICAL_TYPES[index % MAGICAL_TYPES.length].id,
+    magicalType: MAGICAL_TYPES[index % MAGICAL_TYPES.length].id as MagicalType,
   };
 };
 
@@ -69,6 +69,29 @@ export async function fetchPotion(owner: string, repo: string) {
     return transformRepoToPotion(data, 0);
   } catch (error) {
     console.error("Failed to fetch potions", (error as Error).message);
-    return [];
+    return null;
+  }
+}
+
+export async function fetchRandomTrendingPotion() {
+  const url = `${GITHUB_API_URL}/search/repositories?q=topic:javascript+stars:>7000&sort=stars&order=desc`;
+
+  const githubToken = process.env.GITHUB_TOKEN;
+
+  const headers = {
+    Accept: "application/vnd.github+json",
+    Authorization: `Bearer ${githubToken}`,
+  };
+
+  try {
+    const response = await fetch(url, { headers, cache: "no-store" }); //SSR
+
+    const data = await response.json();
+    console.log({ data });
+    const randomIndex = Math.floor(Math.random() * data.items.length);
+    return transformRepoToPotion(data.items[randomIndex], randomIndex);
+  } catch (error) {
+    console.error("Failed to fetch potions", (error as Error).message);
+    return null;
   }
 }
