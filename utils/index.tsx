@@ -13,3 +13,7 @@ export const getFilterPillColor = (id: string) => {
     ? "from-element-electric/20"
     : "from-magic-purple/20";
 };
+
+const isDev = process.env.NODE_ENV === "development";
+
+export const ORIGIN_URL = isDev ? "http://localhost:3001" : ""; //todo: set url to prod url
