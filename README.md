@@ -36,8 +36,8 @@ A mystical web application that transforms popular open-source tools into magica
 1. Clone the repository:
 
 ```bash
-git clone https://github.com/yourusername/open-source-spirit-shop.git
-cd open-source-spirit-shop
+git clone https://github.com/yourusername/zodiac-shop.git
+cd zodiac-shop
 ```
 
 2. Install dependencies:
