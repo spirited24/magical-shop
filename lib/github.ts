@@ -39,7 +39,7 @@ export async function fetchPotions() {
       transformRepoToPotion(repo, index)
     );
   } catch (error) {
-    console.error("Failed to fetch potions", (error as Error).message);
+    console.log("Failed to fetch potions", (error as Error).message);
     return [];
   }
 }
@@ -63,12 +63,11 @@ export async function fetchPotion(owner: string, repo: string) {
     });
 
     const data = await response.json();
-
-    console.log("Fetching potion", owner, repo);
+    console.log({ data });
 
     return transformRepoToPotion(data, 0);
   } catch (error) {
-    console.error("Failed to fetch potions", (error as Error).message);
+    console.log("Failed to fetch potions", (error as Error).message);
     return null;
   }
 }
@@ -98,7 +97,7 @@ export async function fetchRandomTrendingPotion() {
     ) {
       throw error;
     }
-    console.error("Failed to fetch potions", (error as Error).message);
+    console.log("Failed to fetch potions", (error as Error).message);
     return null;
   }
 }
