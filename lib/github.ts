@@ -31,7 +31,7 @@ export async function fetchPotions() {
   };
 
   try {
-    const response = await fetch(url, { headers, cache: "force-cache" });
+    const response = await fetch(url, { headers, cache: "force-cache" }); // SSG => revalidate = 0
 
     const data = await response.json();
     console.log({ data });
@@ -58,7 +58,7 @@ export async function fetchPotion(owner: string, repo: string) {
     const response = await fetch(url, {
       headers,
       next: {
-        revalidate: 3600, //every hour
+        revalidate: 3600, //ISR: revalidate every hour and keeps it fresh
       },
     });
 
@@ -80,10 +80,10 @@ export async function fetchRandomTrendingPotion() {
   const headers = {
     Accept: "application/vnd.github+json",
     Authorization: `Bearer ${githubToken}`,
-  }; //dynamic
+  }; //Dynamic - no caching
 
   try {
-    const response = await fetch(url, { headers, cache: "no-store" }); //SSR => revalidate = 0
+    const response = await fetch(url, { headers, cache: "no-store" }); //SSR => revalidate = 0 but at the cost of performance
 
     const data = await response.json();
     console.log({ data });
@@ -101,3 +101,4 @@ export async function fetchRandomTrendingPotion() {
     return null;
   }
 }
+ 
