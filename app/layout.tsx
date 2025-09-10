@@ -15,9 +15,9 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Zodiac Shop",
+  title: "Magical Shop",
   description:
-    "Open Source Zodiac Shop - Discover magical potions brewed from the powers of popular open-source tools",
+    "Open Source Magical Shop - Discover magical potions brewed from the powers of popular open-source tools",
   metadataBase: new URL(ORIGIN_URL),
   alternates: {
     canonical: ORIGIN_URL,

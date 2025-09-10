@@ -12,7 +12,7 @@ export default function Navigation() {
        */}
       <Link href="/" className="flex items-center gap-2 mb-5">
         <SparklesIcon className="h-6 w-6" />
-        <span className="font-bold text-xl text-magic-purple">Zodiac Shop</span>
+        <span className="font-bold text-xl text-magic-purple">Magical Shop</span>
       </Link>
 
       <Link href="/mystery-potion">
