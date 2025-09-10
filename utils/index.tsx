@@ -18,4 +18,4 @@ const isDev = process.env.NODE_ENV === "development";
 
 export const ORIGIN_URL = isDev
   ? "http://localhost:3001"
-  : "https://open-source-spirit-shop.vercel.app";
+  : "";
